@@ -9,7 +9,7 @@ from prometheus_client import Gauge, generate_latest, CONTENT_TYPE_LATEST
 # Command line arguments
 parser = argparse.ArgumentParser(description='Supervisor Exporter')
 parser.add_argument('--supervisord-url', default='http://localhost:9001/RPC2', help='Supervisord XML-RPC URL')
-parser.add_argument('--listen-address', default=':9876', help='Address to listen for HTTP requests')
+parser.add_argument('--listen-address', default=':9101', help='Address to listen for HTTP requests')
 parser.add_argument('--metrics-path', default='/metrics', help='Path under which to expose metrics')
 parser.add_argument('--version', action='store_true', help='Displays application version')
 args = parser.parse_args()
