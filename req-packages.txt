@@ -1,0 +1,4 @@
+#author @ gd03champ-swg
+#pip freeze > req-packages.txt
+
+prometheus_client==0.20.0

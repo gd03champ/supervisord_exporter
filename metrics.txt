@@ -1,0 +1,54 @@
+[
+    {
+        'name': 'myCounterScript', 
+        'group': 'myCounterScript', 
+        'start': 1715780035, 
+        'stop': 1715780035, 
+        'now': 1715780043, 
+        'state': 20, 
+        'statename': 'RUNNING', 
+        'spawnerr': '', 
+        'exitstatus': 0, 
+        'logfile': '/var/log/supervisor/myCounterScript.out', '
+        stdout_logfile': '/var/log/supervisor/myCounterScript.out', 
+        'stderr_logfile': '/var/log/supervisor/myCounterScript.err', 
+        'pid': 11399, 'description': 'pid 11399, uptime 0:00:08'
+    }
+    
+]
+
+Process Name	Process Group	Process State	Exit Status	Process PID	Start Time	Now Time	Stop Time	Process Uptime (seconds)
+myCounterScript	myCounterScript	RUNNING	0	11569	1715783500	1715783509	1715783500	9.05
+supervisord_exporter	supervisord_exporter	RUNNING	0	11068	1715774417	1715783509	0	9092.05
+
+
+# HELP python_gc_objects_collected_total Objects collected during gc
+# TYPE python_gc_objects_collected_total counter
+python_gc_objects_collected_total{generation="0"} 355.0
+python_gc_objects_collected_total{generation="1"} 50.0
+python_gc_objects_collected_total{generation="2"} 0.0
+# HELP python_gc_objects_uncollectable_total Uncollectable objects found during GC
+# TYPE python_gc_objects_uncollectable_total counter
+python_gc_objects_uncollectable_total{generation="0"} 0.0
+python_gc_objects_uncollectable_total{generation="1"} 0.0
+python_gc_objects_uncollectable_total{generation="2"} 0.0
+# HELP python_gc_collections_total Number of times this generation was collected
+# TYPE python_gc_collections_total counter
+python_gc_collections_total{generation="0"} 43.0
+python_gc_collections_total{generation="1"} 3.0
+python_gc_collections_total{generation="2"} 0.0
+# HELP python_info Python platform information
+# TYPE python_info gauge
+python_info{implementation="CPython",major="3",minor="9",patchlevel="6",version="3.9.6"} 1.0
+# HELP supervisor_process_info Supervisor process information
+# TYPE supervisor_process_info gauge
+supervisor_process_info{description="pid 11569, uptime 0:00:09",exit_status="0",group="myCounterScript",name="myCounterScript",now_time="1715783509",pid="11569",start_time="1715783500",state="RUNNING",stop_time="1715783500"} 1.0
+supervisor_process_info{description="pid 11068, uptime 2:31:32",exit_status="0",group="supervisord_exporter",name="supervisord_exporter",now_time="1715783509",pid="11068",start_time="1715774417",state="RUNNING",stop_time="0"} 1.0
+# HELP supervisor_process_uptime Uptime of Supervisor processes
+# TYPE supervisor_process_uptime gauge
+supervisor_process_uptime{group="myCounterScript",name="myCounterScript"} 9.050243139266968
+supervisor_process_uptime{group="supervisord_exporter",name="supervisord_exporter"} 9092.050288200378
+# HELP supervisord_up Supervisord XML-RPC connection status (1 if up, 0 if down)
+# TYPE supervisord_up gauge
+supervisord_up 1.0
+
