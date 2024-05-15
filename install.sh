@@ -1,7 +1,10 @@
 #!/bin/bash
 
+# ANSI color codes
+GREEN='\033[0;32m'
+NC='\033[0m' # No Color
+
 # Confirm if Supervisor is up and running with RPC endpoint enabled
-echo "This script assumes that supervisor is installed and running with RPC endpoint enabled."
 read -p "Is Supervisor up and running with RPC endpoint enabled? (y/n): " supervisor_confirmed
 if [ "$supervisor_confirmed" != "y" ]; then
     echo "Exiting script..."
@@ -9,31 +12,31 @@ if [ "$supervisor_confirmed" != "y" ]; then
 fi
 
 # Install required packages
-echo "Installing required packages..."
+echo -e "${GREEN}Installing required packages...${NC}"
 sudo apt install -y git python3 python3-pip
 
 # Clone repository
-echo "Cloning repository..."
+echo -e "${GREEN}Cloning repository...${NC}"
 git clone https://github.com/gd03champ/supervisord_exporter
 
 # Change directory
-echo "Changing directory..."
+echo -e "${GREEN}Changing directory...${NC}"
 cd supervisord_exporter
 
 # Install required Python packages
-echo "Installing required Python packages..."
+echo -e "${GREEN}Installing required Python packages...${NC}"
 sudo pip3 install -r req-packages.txt
 
 # Create directory
-echo "Creating directory..."
+echo -e "${GREEN}Creating directory...${NC}"
 sudo mkdir -p /usr/local/supervisord_exporter
 
 # Copy main.py to destination
-echo "Copying main.py to destination..."
+echo -e "${GREEN}Copying main.py to destination...${NC}"
 sudo cp main.py /usr/local/supervisord_exporter/
 
 # Create Supervisor configuration file
-echo "Creating Supervisor configuration file..."
+echo -e "${GREEN}Creating Supervisor configuration file...${NC}"
 sudo tee /etc/supervisor/conf.d/supervisord_exporter.conf > /dev/null <<EOF
 [program:supervisord_exporter]
 ; Path to executable
@@ -61,8 +64,8 @@ stderr_logfile=/var/log/supervisor/supervisord_exporter.err
 EOF
 
 # Update Supervisor configurations
-echo "Updating Supervisor configurations..."
+echo -e "${GREEN}Updating Supervisor configurations...${NC}"
 sudo supervisorctl reread
 sudo supervisorctl update
 
-echo "Setup completed successfully."
+echo -e "${GREEN}Setup completed successfully.${NC}"
