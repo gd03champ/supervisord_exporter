@@ -67,5 +67,5 @@ EOF
 echo -e "${GREEN}Updating Supervisor configurations...${NC}"
 sudo supervisorctl reread
 sudo supervisorctl update
-
+sudo ps aux | grep supervisord_exporter
 echo -e "${GREEN}Setup completed successfully.${NC}"
