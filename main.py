@@ -131,7 +131,7 @@ def main():
 
     try:
         # Start HTTP server
-        with HTTPServer(('localhost', int(args.listen_address.split(':')[1])), RequestHandler) as server:
+        with HTTPServer(('', int(args.listen_address.split(':')[1])), RequestHandler) as server:
             logger.info(f"Listening on {args.listen_address}")
             server.serve_forever()
     except KeyboardInterrupt:
