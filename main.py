@@ -34,6 +34,8 @@ processes_metric = Gauge(
         ])
 supervisor_process_uptime = Gauge('supervisor_process_uptime', 'Uptime of Supervisor processes', ['name', 'group'])
 supervisord_up = Gauge('supervisord_up', 'Supervisord XML-RPC connection status (1 if up, 0 if down)')
+stopped_processes = Gauge('supervisor_stopped_processes', 'Stopped processes', ['name', 'group'])
+running_processes = Gauge('supervisor_running_processes', 'Running processes', ['name', 'group'])
 
 # Fetch Supervisor process info
 def fetch_supervisor_process_info(supervisord_url):
@@ -69,6 +71,8 @@ def fetch_supervisor_process_info(supervisord_url):
         # Clear the previous metric values
         processes_metric._metrics.clear()
         supervisor_process_uptime._metrics.clear()
+        stopped_processes._metrics.clear()
+        running_processes._metrics.clear()
 
         for data in latest_info.values():
             pid = data['pid']
@@ -99,11 +103,19 @@ def fetch_supervisor_process_info(supervisord_url):
                 uptime = time.time() - start_time
                 supervisor_process_uptime.labels(name=name, group=group).set(uptime)
 
+            if state == 'RUNNING':
+                running_processes.labels(name=name, group=group).set(1)
+            elif state == 'STOPPED':
+                stopped_processes.labels(name=name, group=group).set(1)
+
     except Exception as e:
         logger.error(f"Error fetching Supervisor process info: {e}")
         supervisord_up.set(0)
         processes_metric._metrics.clear()
         supervisor_process_uptime._metrics.clear()
+        stopped_processes._metrics.clear()
+        running_processes._metrics.clear()
+
 
 # HTTP request handler
 class RequestHandler(BaseHTTPRequestHandler):

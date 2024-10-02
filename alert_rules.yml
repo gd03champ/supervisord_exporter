@@ -1,0 +1,11 @@
+groups:
+- name: supervisor_alerts
+  rules:
+  - alert: SupervisorProcessStopped
+    expr: supervisor_stopped_processes > 0
+    for: 0m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Supervisor process stopped: {{ $labels.name }}"
+      description: "Supervisor process {{ $labels.name }} in group {{ $labels.group }} is stopped."
